@@ -16,7 +16,7 @@ class App extends Component {
         name: 'Jim',
       },
       monster3: {
-        name: 'Maddie'
+        name: 'Maddie',
       }
     }
   }
@@ -27,7 +27,7 @@ class App extends Component {
       <div className="App">
        <h1>{this.state.monster1.name}</h1>
        <h1>{this.state.monster2.name}</h1>
-       <h1>{this.state.monster.name}</h1>
+       <h1>{this.state.monster3.name}</h1>
       </div>
     );
   }

@@ -9,24 +9,28 @@ class App extends Component {
 
       // start here
     this.state = {
-      monsters: [
-        {
-          name: 'Ron',
-          id: '12ab',
-        },
-        {
-          name: 'Jim',
-          id: '34cd',
-        },
-        {
-          name: 'Maddie',
-          id: '56ef',
-        },
-      ]
+      monsters: [],
+    };
+    console.log('constructor')
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then((response) => response.json())
+    // Passing in a function that returns an object
+    .then((users) => this.setState(() => {
+      return {monsters: users}
+    },
+    // Passing in a callback function when setstate is finished to make sure the state has the correct value
+    () => {
+      console.log(this.state);
     }
+  ));
   }
 
   render() {
+    console.log('render')
     return (
       <div className="App">
        { this.state.monsters.map((monster) => {

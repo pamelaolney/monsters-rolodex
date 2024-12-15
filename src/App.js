@@ -10,6 +10,8 @@ class App extends Component {
       // start here
     this.state = {
       monsters: [],
+      // to get access of search outside of the component, empty string because it's the null/empty case
+      searchField: ''
     };
     console.log('constructor')
   }
@@ -29,14 +31,43 @@ class App extends Component {
   ));
   }
 
+onSearchChange = (event) => {
+  // includes is not case sensitive, so we want to make sure the value is lowercase
+  const searchField = event.target.value.toLowerCase();
+  this.setState(
+    () => {
+  // in js es6, javascript recognizes that the key "searchField" will be the name of this variable and the value will be the value of the "searchField" variable
+  return { searchField }
+  // passing a callback once set state is updated
+}, () => {
+})
+}
+
+
   render() {
     console.log('render')
+
+
+    const { monsters, searchField } = this.state;
+    const { onSearchChange} = this;
+    // receives a callback and pass the callback based on what you give it, it's expecting a boolean. if true it keeps the element. if false it takes it out
+    const filteredMonsters = monsters.filter((monster) => {
+    // if the name includes the string, then i want you to return true
+    return monster.name.toLocaleLowerCase().includes(searchField);
+    });
+
     return (
       <div className="App">
-       { this.state.monsters.map((monster) => {
+        <input
+          className='search-box'
+          type='search'
+          placeholder='search monsters'
+          onChange={onSearchChange}
+        />
+       { filteredMonsters.map((monster) => {
         return (
           <div key={monster.id}>
-            <h1 key={monster.id}>{monster.name}</h1>
+            <h1 key={monster.id} >{monster.name}</h1>
           </div>
         );
        })}
